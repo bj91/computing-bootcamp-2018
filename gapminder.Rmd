@@ -5,24 +5,19 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.width = 7)
 ```
 
 
 ## Load packages
-```{r message=FALSE}
+```{r LoadLibrary, message=FALSE}
 library(tidyverse)
 ```
 
 ## Load data
-
-```{r}
-gap <- read_csv("https://bit.ly/gap_data")
-```
-```{r}
-x = 2
-x^3
+```{r ReadTable, message=FALSE}
+gap = read_csv("https://bit.ly/gap_data")
 ```
 
 ## Exercises
@@ -38,7 +33,6 @@ There are `r nrow(gap)` observations in the dataset.
 Visualize the relationship between GDP and life expectancy for 
 countries in Europe in 1952 using a scatter plot.
 
-
 ```{r eu_52, echo=FALSE}
 eu_52 = gap %>% filter(continent == "Europe", year == 1952)
 ggplot(data = eu_52, aes(x = gdpPercap, y = lifeExp))+geom_point()
@@ -49,7 +43,6 @@ ggplot(data = eu_52, aes(x = gdpPercap, y = lifeExp))+geom_point()
 Add year 1967 in another color.
 
 ```{r eu_52_67, echo=FALSE}
-eu_52_67 = gap %>% filter(continent == "Europe", year %in% c(1952, 1967))
-ggplot(data = eu_52_67, aes(x = gdpPercap, y = lifeExp, colour=factor(year)))+geom_point()
+ggplot()+geom_point(data=eu_52, aes(x = gdpPercap, y = lifeExp))+geom_point(data=gap %>% filter(continent == "Europe", year == 1967), aes(x = gdpPercap, y = lifeExp), colour = "red")
 ```
 
